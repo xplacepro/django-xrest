@@ -12,7 +12,7 @@ setup(
     version='0.1',
     packages=['xrest'],
     include_package_data=True,
-    license='BSD License',  # example license
+    license='BSD License',
     description='A simple Django rest framework.',
     long_description=README,
     url='https://github.com/xplacepro/django-xrest',

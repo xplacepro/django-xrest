@@ -16,7 +16,7 @@ setup(
     description='A simple Django rest framework.',
     long_description=README,
     url='https://github.com/xplacepro/django-xrest',
-    author='Your Name',
+    author='Alex Sofin',
     author_email='sofin.moffin@gmail.com',
     classifiers=[
         'Environment :: Web Environment',

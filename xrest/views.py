@@ -55,15 +55,19 @@ class BaseApiView(View):
         except self.model.DoesNotExist:
             raise self.object_not_found()
 
-    def response(self, data, status=200):
+    def error(self, data, status=400):
+        return self.response(data, status=status, resp_type='error')
+
+    def response(self, data, status=200, resp_type='sync'):
         """
         Success response which dumps data to json
         :param data:
         :param status:
+        :param resp_type:
         :return:
         """
         resp = {
-            'type': 'sync',
+            'type': resp_type,
             'status': status,
             'metadata': data
         }
@@ -130,7 +134,7 @@ class BaseApiView(View):
             return handler(request, *args, **kwargs)
 
         except ResponseException as exc:
-            return self.response(exc.error_dict, exc.status)
+            return self.error(exc.error_dict, exc.status)
 
         # return wrapper
 
@@ -189,7 +193,7 @@ class BaseApiView(View):
         :return:
         """
         if not self.get_update_form():
-            return self.response({'error': 'method_not_allowed'}, status=405)
+            return self.error({'error': 'method_not_allowed'}, status=405)
         self.update_object()
         return self.response({'object': self.make_object_dict(self.object)})
 

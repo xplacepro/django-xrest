@@ -65,7 +65,7 @@ class BaseApiView(View):
         resp = {
             'type': 'sync',
             'status': status,
-            'meta': data
+            'metadata': data
         }
         return HttpResponse(json.dumps(resp), content_type=self.content_type, status=status)
 

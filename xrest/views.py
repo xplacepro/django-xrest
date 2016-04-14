@@ -55,7 +55,7 @@ class BaseApiView(View):
         except self.model.DoesNotExist:
             raise self.object_not_found()
 
-    def sync_response(self, data, status=200):
+    def response(self, data, status=200):
         """
         Success response which dumps data to json
         :param data:

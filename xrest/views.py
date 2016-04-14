@@ -55,14 +55,19 @@ class BaseApiView(View):
         except self.model.DoesNotExist:
             raise self.object_not_found()
 
-    def response(self, data, status=200):
+    def sync_response(self, data, status=200):
         """
         Success response which dumps data to json
         :param data:
         :param status:
         :return:
         """
-        return HttpResponse(json.dumps(data), content_type=self.content_type, status=status)
+        resp = {
+            'type': 'sync',
+            'status': status,
+            'meta': data
+        }
+        return HttpResponse(json.dumps(resp), content_type=self.content_type, status=status)
 
     def make_object_dict(self, obj):
         data = obj.to_json_dict()
@@ -146,7 +151,7 @@ class BaseApiView(View):
         meta = paginator.meta()
         objects = [self.make_object_dict(obj) for obj in paginator.sliced_queryset]
         response = {'objects': objects}
-        response.update({'meta': meta})
+        response.update({'pagination': meta})
 
         return self.response(response)
 

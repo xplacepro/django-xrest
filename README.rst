@@ -1,22 +1,18 @@
-=========
-XRest api
-=========
-
-Minimalistic rest framework for django
---------------------------------------
-
+==================================================
+XRest api - Minimalistic rest framework for django
+==================================================
 
 Installation
-============
+------------
 
 pip install git+git://github.com/xplacepro/django-xrest.git
 
 
 Usage
-=====
+-----
 
 Api class
----------
+=========
 
 First declare some api class. This gives you base CRUD api endpoints for given model.
 
@@ -52,8 +48,8 @@ First declare some api class. This gives you base CRUD api endpoints for given m
             return urls
 
 
-Urls.py
--------
+Urls
+====
 
 Then register this class by doing this in your urls.py
 

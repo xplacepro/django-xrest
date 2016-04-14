@@ -20,7 +20,7 @@ class LimitOffsetPaginator(object):
     def get_queryset(self):
         return self.queryset
 
-    def slice_queryset(self, queryset):
+    def slice_queryset(self):
         sliced = self.get_queryset()[self.offset:self.offset+self.limit]
         self.sliced_queryset = sliced
         return sliced
@@ -42,8 +42,9 @@ class LimitOffsetPaginator(object):
 
     def meta(self):
         queryset = self.get_queryset()
-        sliced_queryset = self.slice_queryset(queryset)
         overall_count = queryset.count()
+
+        sliced_queryset = self.slice_queryset()
 
         if overall_count > self.offset+self.limit:
             next_url = self.build_next_url(self.offset+self.limit)

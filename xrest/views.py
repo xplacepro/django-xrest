@@ -28,6 +28,7 @@ class BaseApiView(View):
     skip_authentication = []
     object_pk = 'pk'
     handlers_dict = None
+    expect_raw_data = False
 
     def get_update_form(self):
         return self.update_form
@@ -120,7 +121,7 @@ class BaseApiView(View):
                 object_pk = kwargs.get(self.object_pk, None)
                 self.object = self.get_object(object_pk)
 
-            if request_method in ['post', 'put', 'delete', 'patch']:
+            if request_method in ['post', 'put', 'delete', 'patch'] and not self.expect_raw_data:
                 try:
                     data = request.body.decode()
                     if data:
